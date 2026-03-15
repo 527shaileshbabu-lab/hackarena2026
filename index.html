@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HackArena 2026 — Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c10;
+    --bg2: #0d1117;
+    --bg3: #161b22;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --accent: #00e5a0;
+    --accent2: #00b87a;
+    --accent-dim: rgba(0,229,160,0.12);
+    --accent-glow: rgba(0,229,160,0.25);
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #484f58;
+    --danger: #f85149;
+    --danger-dim: rgba(248,81,73,0.12);
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -200px; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 500px;
+    background: radial-gradient(ellipse at center, rgba(0,229,160,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .logo { font-family: var(--mono); font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; }
+  .logo span { color: var(--text2); }
+  .nav-tag { font-family: var(--mono); font-size: 0.7rem; color: var(--text3); border: 1px solid var(--border); padding: 4px 10px; border-radius: 4px; }
+
+  .hero { margin-bottom: 3rem; }
+  .hero-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 0.7rem; color: var(--accent);
+    background: var(--accent-dim); border: 1px solid rgba(0,229,160,0.2);
+    padding: 5px 12px; border-radius: 4px; margin-bottom: 1.25rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .hero-kicker::before {
+    content: ''; width: 6px; height: 6px; background: var(--accent);
+    border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  h1 {
+    font-family: var(--mono); font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--text); margin-bottom: 1rem;
+  }
+  h1 .hl { color: var(--accent); }
+
+  .hero-sub { font-size: 1.05rem; color: var(--text2); font-weight: 300; max-width: 520px; line-height: 1.65; margin-bottom: 1.75rem; }
+
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 12px; }
+  .meta-pill {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.82rem; color: var(--text2); background: var(--bg3);
+    border: 1px solid var(--border); padding: 6px 14px; border-radius: 6px;
+  }
+  .meta-pill svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  .countdown-wrap {
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+    position: relative; overflow: hidden;
+  }
+  .countdown-wrap::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .cd-label { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); white-space: nowrap; }
+  .cd-units { display: flex; gap: 10px; flex: 1; justify-content: center; }
+  .cd-unit { text-align: center; min-width: 64px; padding: 10px 8px 8px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; }
+  .cd-num { font-family: var(--mono); font-size: 1.8rem; font-weight: 700; color: var(--accent); display: block; line-height: 1; letter-spacing: -0.02em; }
+  .cd-lbl { font-size: 0.62rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-top: 4px; }
+  .cd-sep { font-family: var(--mono); font-size: 1.5rem; color: var(--text3); align-self: center; margin-bottom: 10px; }
+
+  .content-grid { display: grid; grid-template-columns: 1fr 1.55fr; gap: 2rem; align-items: start; }
+  @media (max-width: 680px) { .content-grid { grid-template-columns: 1fr; } }
+
+  .sidebar-section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; margin-bottom: 1rem; }
+  .sidebar-title { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); margin-bottom: 1rem; }
+  .track-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; color: var(--text2); }
+  .track-item:last-child { border-bottom: none; }
+  .track-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: var(--accent); }
+  .track-dot.d { background: #58a6ff; }
+  .track-dot.c { background: #f0883e; }
+  .track-dot.e { background: #bc8cff; }
+
+  .prize-list { list-style: none; }
+  .prize-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+  .prize-row:last-child { border-bottom: none; }
+  .prize-place { color: var(--text2); }
+  .prize-amt { font-family: var(--mono); font-size: 0.85rem; color: var(--accent); }
+  .prize-amt.s { color: #8b949e; }
+  .prize-amt.b { color: #f0883e; }
+
+  .form-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: 12px; padding: 1.75rem; position: relative; overflow: hidden; }
+  .form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent 10%, var(--accent) 50%, transparent 90%); }
+  .form-title { font-family: var(--mono); font-size: 1rem; color: var(--text); margin-bottom: 0.3rem; }
+  .form-sub { font-size: 0.82rem; color: var(--text3); margin-bottom: 1.75rem; }
+
+  .section-divider { font-family: var(--mono); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); border-bottom: 1px solid var(--border); padding-bottom: 6px; margin: 1.25rem 0 1rem; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .field-row.single { grid-template-columns: 1fr; }
+  @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
+
+  .field-group { display: flex; flex-direction: column; gap: 5px; }
+  .field-group.has-error input, .field-group.has-error select { border-color: var(--danger) !important; }
+
+  label { font-size: 0.72rem; font-weight: 500; color: var(--text2); letter-spacing: 0.03em; }
+  label .req { color: var(--danger); margin-left: 2px; }
+
+  input[type=text], input[type=email], input[type=tel], select {
+    background: var(--bg3); border: 1px solid var(--border2); border-radius: 7px;
+    padding: 9px 12px; font-size: 0.88rem; font-family: var(--sans);
+    color: var(--text); outline: none; transition: border-color 0.15s, box-shadow 0.15s; width: 100%;
+  }
+  input::placeholder { color: var(--text3); }
+  select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b949e' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px;
+  }
+  select option { background: #161b22; }
+  input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+
+  .err-msg { font-size: 0.7rem; color: var(--danger); display: none; }
+  .field-group.has-error .err-msg { display: block; }
+
+  .members-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+  .members-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .members-header span { font-size: 0.7rem; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; font-family: var(--mono); }
+  .add-member-btn { background: var(--accent-dim); border: 1px solid rgba(0,229,160,0.25); color: var(--accent); font-size: 0.72rem; font-family: var(--mono); padding: 4px 12px; border-radius: 5px; cursor: pointer; transition: background 0.15s; }
+  .add-member-btn:hover { background: rgba(0,229,160,0.2); }
+
+  .member-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .member-row input { flex: 1; }
+  .del-btn { background: none; border: 1px solid var(--border); color: var(--text3); width: 30px; height: 30px; border-radius: 6px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.15s, color 0.15s; }
+  .del-btn:hover { border-color: var(--danger); color: var(--danger); }
+  .member-count-note { font-size: 0.7rem; color: var(--text3); margin-top: 8px; }
+
+  .submit-btn {
+    width: 100%; margin-top: 6px; padding: 13px; background: var(--accent);
+    color: #080c10; border: none; border-radius: 8px; font-size: 0.92rem;
+    font-weight: 600; font-family: var(--sans); cursor: pointer;
+    letter-spacing: 0.02em; transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    position: relative; overflow: hidden;
+  }
+  .submit-btn::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent); }
+  .submit-btn:hover { background: #00c98a; box-shadow: 0 0 24px var(--accent-glow); }
+  .submit-btn:active { transform: scale(0.99); }
+
+  #success-view { display: none; text-align: center; padding: 4rem 2rem; max-width: 520px; margin: 0 auto; }
+  .success-ring { width: 72px; height: 72px; border-radius: 50%; border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; animation: ring-pop 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  @keyframes ring-pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-ring svg { width: 32px; height: 32px; color: var(--accent); }
+  #success-view h2 { font-family: var(--mono); font-size: 1.5rem; color: var(--text); margin-bottom: 0.6rem; }
+  #success-view p { color: var(--text2); font-size: 0.92rem; line-height: 1.65; margin-bottom: 1.75rem; }
+  .reg-id-box { display: inline-block; background: var(--bg3); border: 1px solid var(--accent); border-radius: 8px; padding: 10px 28px; font-family: var(--mono); font-size: 1.3rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 2rem; box-shadow: 0 0 20px var(--accent-glow); }
+  .reg-detail { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem; text-align: left; margin-bottom: 1.75rem; }
+  .reg-detail-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+  .reg-detail-row:last-child { border-bottom: none; }
+  .rd-key { color: var(--text3); }
+  .rd-val { color: var(--text); font-weight: 500; }
+  .reset-btn { background: none; border: 1px solid var(--border2); color: var(--text2); font-family: var(--sans); font-size: 0.85rem; padding: 9px 24px; border-radius: 7px; cursor: pointer; transition: border-color 0.15s, color 0.15s; }
+  .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <nav>
+    <div class="logo">hack<span>//</span>arena</div>
+    <div class="nav-tag">2026 · REGISTRATIONS OPEN</div>
+  </nav>
+
+  <div id="main-view">
+    <div class="hero">
+      <div class="hero-kicker">24-hour hackathon</div>
+      <h1>Build the<br><span class="hl">future.</span></h1>
+      <p class="hero-sub">48 hours. One challenge. Zero limits. Compete with the best student developers, designers, and innovators across the country.</p>
+      <div class="hero-meta">
+        <div class="meta-pill">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M5 1v3M11 1v3M2 7h12"/></svg>
+          April 20–21, 2026
+        </div>
+        <div class="meta-pill">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="7" r="3"/><path d="M8 2a5 5 0 010 10c-2.5 0-5-2.5-5-5"/></svg>
+          Coimbatore, Tamil Nadu
+        </div>
+        <div class="meta-pill">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.2 5.3 13.3l.7-4.1L3 6.3l4.2-.7z"/></svg>
+          ₹50,000 prize pool
+        </div>
+      </div>
+    </div>
+
+    <div class="countdown-wrap">
+      <div class="cd-label">Registration closes in</div>
+      <div class="cd-units">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">days</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">hrs</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">min</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">sec</span></div>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Tracks</div>
+          <div class="track-item"><span class="track-dot"></span>AI &amp; Machine Learning</div>
+          <div class="track-item"><span class="track-dot d"></span>Dev Tools &amp; Open Source</div>
+          <div class="track-item"><span class="track-dot c"></span>Climate Tech</div>
+          <div class="track-item"><span class="track-dot e"></span>EdTech &amp; Social Impact</div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Prizes</div>
+          <ul class="prize-list">
+            <li class="prize-row"><span class="prize-place">🥇 First place</span><span class="prize-amt">₹25,000</span></li>
+            <li class="prize-row"><span class="prize-place">🥈 Second place</span><span class="prize-amt s">₹15,000</span></li>
+            <li class="prize-row"><span class="prize-place">🥉 Third place</span><span class="prize-amt b">₹10,000</span></li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Eligibility</div>
+          <div class="track-item"><span class="track-dot"></span>Students only (any year)</div>
+          <div class="track-item"><span class="track-dot d"></span>Teams of 2–4 members</div>
+          <div class="track-item"><span class="track-dot c"></span>Valid college ID required</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-title">// register your team</div>
+        <div class="form-sub">Fill in your details. All fields marked * are required.</div>
+
+        <div class="section-divider">01 — lead participant</div>
+        <div class="field-row">
+          <div class="field-group" id="fg-fname">
+            <label>First name <span class="req">*</span></label>
+            <input type="text" id="fname" placeholder="Arjun" autocomplete="given-name" />
+            <span class="err-msg">First name is required</span>
+          </div>
+          <div class="field-group" id="fg-lname">
+            <label>Last name <span class="req">*</span></label>
+            <input type="text" id="lname" placeholder="Kumar" autocomplete="family-name" />
+            <span class="err-msg">Last name is required</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field-group" id="fg-email">
+            <label>Email address <span class="req">*</span></label>
+            <input type="email" id="email" placeholder="arjun@college.edu" autocomplete="email" />
+            <span class="err-msg">Enter a valid email address</span>
+          </div>
+        </div>
+        <div class="field-row single">
+          <div class="field-group" id="fg-phone">
+            <label>Phone number <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+91 98765 43210" autocomplete="tel" />
+            <span class="err-msg">Phone number is required</span>
+          </div>
+        </div>
+
+        <div class="section-divider">02 — institution</div>
+        <div class="field-row">
+          <div class="field-group" id="fg-college">
+            <label>College / institution <span class="req">*</span></label>
+            <input type="text" id="college" placeholder="PSG Tech" />
+            <span class="err-msg">College name is required</span>
+          </div>
+          <div class="field-group">
+            <label>Department</label>
+            <select id="dept">
+              <option value="">Select...</option>
+              <option>Computer Science</option>
+              <option>Information Technology</option>
+              <option>Electronics &amp; Comm.</option>
+              <option>Electrical Engineering</option>
+              <option>Mechanical</option>
+              <option>Business / MBA</option>
+              <option>Design</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-divider">03 — team</div>
+        <div class="field-row single" style="margin-bottom:12px">
+          <div class="field-group" id="fg-teamname">
+            <label>Team name <span class="req">*</span></label>
+            <input type="text" id="teamname" placeholder="Team Invictus" />
+            <span class="err-msg">Team name is required</span>
+          </div>
+        </div>
+
+        <div class="members-box">
+          <div class="members-header">
+            <span>additional members</span>
+            <button class="add-member-btn" onclick="addMember()">+ add member</button>
+          </div>
+          <div id="members-list"></div>
+          <div class="member-count-note" id="member-note">You can add up to 3 more members.</div>
+        </div>
+
+        <div class="field-row single">
+          <div class="field-group">
+            <label>Hack track</label>
+            <select id="track">
+              <option value="">Choose a track...</option>
+              <option>AI &amp; Machine Learning</option>
+              <option>Dev Tools &amp; Open Source</option>
+              <option>Climate Tech</option>
+              <option>EdTech &amp; Social Impact</option>
+              <option>Open track</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="submitForm()">Submit registration →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="success-view">
+    <div class="success-ring">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h2>you're in.</h2>
+    <p>Registration confirmed. Check your email for further details. Save your registration ID — you'll need it on event day.</p>
+    <div class="reg-id-box" id="reg-id">REG-0000</div>
+    <div class="reg-detail" id="reg-summary"></div>
+    <button class="reset-btn" onclick="resetForm()">Register another team</button>
+  </div>
+
+</div>
+
+<script>
+  const DEADLINE = new Date('2026-04-19T23:59:59');
+  function tick() {
+    const diff = DEADLINE - Date.now();
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('cd-d').textContent = pad(Math.floor(diff/86400000));
+    document.getElementById('cd-h').textContent = pad(Math.floor(diff%86400000/3600000));
+    document.getElementById('cd-m').textContent = pad(Math.floor(diff%3600000/60000));
+    document.getElementById('cd-s').textContent = pad(Math.floor(diff%60000/1000));
+  }
+  tick(); setInterval(tick, 1000);
+
+  let memberCount = 0;
+  function addMember() {
+    if (memberCount >= 3) return;
+    memberCount++;
+    const list = document.getElementById('members-list');
+    const div = document.createElement('div');
+    div.className = 'member-row';
+    div.id = 'mr-' + memberCount;
+    div.innerHTML = `<input type="text" placeholder="Member ${memberCount} — full name" /><button class="del-btn" onclick="delMember(${memberCount})" title="Remove">×</button>`;
+    list.appendChild(div);
+    updateNote();
+  }
+  function delMember(id) {
+    const el = document.getElementById('mr-' + id);
+    if (el) { el.remove(); memberCount = Math.max(0, memberCount-1); updateNote(); }
+  }
+  function updateNote() {
+    const rem = 3 - memberCount;
+    document.getElementById('member-note').textContent =
+      rem > 0 ? `You can add up to ${rem} more member${rem>1?'s':''}.` : 'Maximum team size reached (4 members).';
+    document.querySelector('.add-member-btn').style.opacity = memberCount >= 3 ? '0.4' : '1';
+    document.querySelector('.add-member-btn').style.pointerEvents = memberCount >= 3 ? 'none' : '';
+  }
+
+  function setErr(id, show) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (show) el.classList.add('has-error');
+    else el.classList.remove('has-error');
+  }
+
+  function submitForm() {
+    let ok = true;
+    const v = id => document.getElementById(id)?.value.trim();
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!v('fname')) { setErr('fg-fname', true); ok = false; } else setErr('fg-fname', false);
+    if (!v('lname')) { setErr('fg-lname', true); ok = false; } else setErr('fg-lname', false);
+    if (!emailRe.test(v('email'))) { setErr('fg-email', true); ok = false; } else setErr('fg-email', false);
+    if (!v('phone')) { setErr('fg-phone', true); ok = false; } else setErr('fg-phone', false);
+    if (!v('college')) { setErr('fg-college', true); ok = false; } else setErr('fg-college', false);
+    if (!v('teamname')) { setErr('fg-teamname', true); ok = false; } else setErr('fg-teamname', false);
+
+    if (!ok) return;
+
+    const rid = 'HACK-' + Math.random().toString(36).slice(2,7).toUpperCase();
+    document.getElementById('reg-id').textContent = rid;
+
+    const memberNodes = document.querySelectorAll('#members-list .member-row input');
+    const extras = Array.from(memberNodes).map(i => i.value.trim()).filter(Boolean);
+    const track = v('track') || '—';
+    document.getElementById('reg-summary').innerHTML = `
+      <div class="reg-detail-row"><span class="rd-key">Name</span><span class="rd-val">${v('fname')} ${v('lname')}</span></div>
+      <div class="reg-detail-row"><span class="rd-key">Email</span><span class="rd-val">${v('email')}</span></div>
+      <div class="reg-detail-row"><span class="rd-key">College</span><span class="rd-val">${v('college')}</span></div>
+      <div class="reg-detail-row"><span class="rd-key">Team name</span><span class="rd-val">${v('teamname')}</span></div>
+      <div class="reg-detail-row"><span class="rd-key">Team size</span><span class="rd-val">${1 + extras.length} member${extras.length ? 's' : ''}</span></div>
+      <div class="reg-detail-row"><span class="rd-key">Track</span><span class="rd-val">${track}</span></div>
+    `;
+
+    document.getElementById('main-view').style.display = 'none';
+    document.getElementById('success-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function resetForm() {
+    ['fname','lname','email','phone','college','teamname'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('dept').selectedIndex = 0;
+    document.getElementById('track').selectedIndex = 0;
+    document.getElementById('members-list').innerHTML = '';
+    memberCount = 0;
+    updateNote();
+    document.getElementById('success-view').style.display = 'none';
+    document.getElementById('main-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
